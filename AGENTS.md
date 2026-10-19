@@ -20,7 +20,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 - The uid stays `minecraft-worldapi`: Moonlands' links, both READMEs, and grafana.com point at `/d/minecraft-worldapi`. The title stays “Minecraft server (minecraft-exporter)”, as on grafana.com: imports match it, and Grafana refuses two dashboards with one title in a folder.
 - Data sources come only from the `datasource` (Prometheus) and `worldapi` (Infinity) variables. `${DS_…}` inputs work on import but not in a provisioned file, which Moonlands uses.
 - Every query filters by `instance="$instance"`, and per-player ones by `player=~"$player"` too.
-- Use only metrics minecraft-exporter documents in its README. A new metric lands in the exporter first, and the dashboard's release follows the exporter's.
+- Use only metrics minecraft-exporter documents on its wiki's Metrics page. A new metric lands in the exporter first, and the dashboard's release follows the exporter's.
 - Counters that start with the exporter (events, deaths by cause) lose their first event under `increase()`; the exporter seeds what it can at zero, and “Deaths by cause” subtracts the value at the start of the range instead.
 - Panels that need a WorldAPI permission say so in their description, as “Needs a WorldAPI token with logs:read.”, and the README's warning about keeping a token-fed dashboard private stays.
 - Follow the dataviz rules the panels already use: stats for headline numbers, one axis per graph, status colors only for thresholds, thin lines.
