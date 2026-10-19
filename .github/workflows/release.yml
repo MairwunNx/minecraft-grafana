@@ -1,0 +1,77 @@
+name: Release
+
+# Run by hand: Actions → Release → Run workflow, with the new version. grafana.com takes new
+# revisions only on its website, so upload minecraft.json there afterwards, as CLAUDE.md says.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version, like 1.0.0"
+        required: true
+      changelog:
+        description: "Changelog in Markdown; leave empty to take the version's section from CHANGELOG.md"
+        required: false
+      moonlands:
+        description: "Ship the release to Moonlands (needs the FAMILY_ACTIONS_TOKEN secret)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ inputs.version }}
+      CHANGELOG: ${{ inputs.changelog }}
+      NOTES: release-notes.md
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check the version
+        run: |
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::$VERSION isn't a version like 1.0.0"; exit 1; }
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION" >/dev/null; then
+            echo "::error::v$VERSION is already released"; exit 1
+          fi
+      - run: python3 -I scripts/check.py
+      - name: Write the release notes and stamp the dashboard
+        shell: python
+        run: |
+          import json, os, re, sys
+          version, typed = os.environ["VERSION"], os.environ["CHANGELOG"].strip()
+          if typed:
+              notes = typed
+          else:
+              text = open("CHANGELOG.md", encoding="utf-8").read()
+              match = re.search(rf"^## {re.escape(version)}\s*$(.*?)(?=^## |\Z)", text, re.M | re.S)
+              notes = match.group(1).strip() if match else ""
+          if not notes:
+              sys.exit(f"::error::No changelog: add a “## {version}” section to CHANGELOG.md or fill the changelog field")
+          open(os.environ["NOTES"], "w", encoding="utf-8").write(notes + "\n")
+          # The version shows in Grafana's dashboard settings, so an imported copy says which release it is.
+          dashboard = json.load(open("dashboard.json", encoding="utf-8"))
+          dashboard["description"] = re.sub(r" \(v[\d.]+\)$", "", dashboard["description"]) + f" (v{version})"
+          with open("minecraft.json", "w", encoding="utf-8") as file:
+              json.dump(dashboard, file, indent=2, ensure_ascii=False)
+              file.write("\n")
+      - name: Publish the GitHub release
+        # releases/latest/download/minecraft.json always reaches the newest dashboard.
+        run: gh release create "v$VERSION" --target "$GITHUB_SHA" --title "Minecraft dashboard $VERSION" --notes-file "$NOTES" minecraft.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  deploy:
+    needs: release
+    if: inputs.moonlands
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ship to Moonlands
+        # Moonlands' “Ship a release” workflow puts the new dashboard into its Grafana.
+        run: gh workflow run ship-plugin.yml -R MairwunNx/minecraft -f repo="$GITHUB_REPOSITORY" -f version="$VERSION"
+        env:
+          GH_TOKEN: ${{ secrets.FAMILY_ACTIONS_TOKEN }}
+          VERSION: ${{ inputs.version }}
