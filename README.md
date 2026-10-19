@@ -1,7 +1,7 @@
 # Minecraft dashboard for Grafana
 
 <p align="center">
-  <a href="https://grafana.com/grafana/dashboards/GRAFANA_ID"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-GRAFANA_ID-F46800?logo=grafana&logoColor=white"></a>
+  <a href="https://grafana.com/grafana/dashboards/25941"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-25941-F46800?logo=grafana&logoColor=white"></a>
   <a href="https://github.com/MairwunNx/minecraft-grafana/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MairwunNx/minecraft-grafana?label=release"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/MairwunNx/minecraft-grafana"></a>
 </p>
@@ -27,7 +27,7 @@ Pick a server and players at the top; restarts show as marks on every graph.
 
 You need Grafana 11 or newer and Prometheus scraping [minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter#prometheus).
 
-**From grafana.com.** In Grafana, open Dashboards → New → Import, enter `GRAFANA_ID`, and pick your Prometheus.
+**From grafana.com.** In Grafana, open Dashboards → New → Import, enter `25941`, and pick your Prometheus.
 
 **From a file.** Download [`minecraft.json`](https://github.com/MairwunNx/minecraft-grafana/releases/latest/download/minecraft.json) and import it the same way, or let Grafana load it from a provisioned folder: the dashboard picks its data sources through variables, so it needs no editing. minecraft-exporter's [`examples/`](https://github.com/MairwunNx/minecraft-exporter/tree/master/examples) shows a provisioned setup.
 
@@ -43,7 +43,7 @@ WorldAPI records chat only with `events.chat: true` in its config. Grafana calls
 
 ## Try it live
 
-Moonlands, my hard survival server with friends, shows this dashboard to everyone: [minecraft.mairwunnx.com/grafana](https://minecraft.mairwunnx.com/grafana/d/minecraft-worldapi/minecraft).
+Moonlands, my hard survival server with friends, shows this dashboard to everyone: [minecraft.mairwunnx.com/grafana](https://minecraft.mairwunnx.com/grafana/d/minecraft-worldapi).
 
 [![Play on Moonlands: pure vanilla, hard mobs, AI, claims. minecraft.mairwunnx.com](https://raw.githubusercontent.com/MairwunNx/minecraft-worldapi/master/media/og-adv-image.png)](https://minecraft.mairwunnx.com)
 

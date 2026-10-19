@@ -50,7 +50,7 @@
       "version": ""
     }
   ],
-  "title": "Minecraft",
+  "title": "Minecraft server (minecraft-exporter)",
   "uid": "minecraft-worldapi",
   "description": "A Minecraft server through WorldAPI and minecraft-exporter: performance, worlds, players, activity, chat, and events.",
   "tags": [

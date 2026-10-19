@@ -1,7 +1,7 @@
 # Дашборд Minecraft для Grafana
 
 <p align="center">
-  <a href="https://grafana.com/grafana/dashboards/GRAFANA_ID"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-GRAFANA_ID-F46800?logo=grafana&logoColor=white"></a>
+  <a href="https://grafana.com/grafana/dashboards/25941"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-25941-F46800?logo=grafana&logoColor=white"></a>
   <a href="https://github.com/MairwunNx/minecraft-grafana/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MairwunNx/minecraft-grafana?label=release"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/MairwunNx/minecraft-grafana"></a>
 </p>
@@ -27,7 +27,7 @@
 
 Нужны Grafana 11 или новее и Prometheus, который опрашивает [minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter/blob/master/README.RU.md#prometheus).
 
-**С grafana.com.** В Grafana откройте Dashboards → New → Import, введите `GRAFANA_ID` и выберите свой Prometheus.
+**С grafana.com.** В Grafana откройте Dashboards → New → Import, введите `25941` и выберите свой Prometheus.
 
 **Из файла.** Скачайте [`minecraft.json`](https://github.com/MairwunNx/minecraft-grafana/releases/latest/download/minecraft.json) и импортируйте так же, или пусть Grafana загрузит его из папки провижининга: источники данных дашборд выбирает через переменные, так что править его не нужно. Пример такой настройки лежит в [`examples/`](https://github.com/MairwunNx/minecraft-exporter/tree/master/examples) у minecraft-exporter.
 
@@ -43,7 +43,7 @@ WorldAPI записывает чат, только если в его конфи
 
 ## Посмотреть вживую
 
-Moonlands, мой сервер для хардкорного выживания с друзьями, показывает этот дашборд всем: [minecraft.mairwunnx.com/grafana](https://minecraft.mairwunnx.com/grafana/d/minecraft-worldapi/minecraft).
+Moonlands, мой сервер для хардкорного выживания с друзьями, показывает этот дашборд всем: [minecraft.mairwunnx.com/grafana](https://minecraft.mairwunnx.com/grafana/d/minecraft-worldapi).
 
 [![Играйте на Moonlands: чистая ванилла, сложные мобы, ИИ, приваты. minecraft.mairwunnx.com](https://raw.githubusercontent.com/MairwunNx/minecraft-worldapi/master/media/og-adv-image.png)](https://minecraft.mairwunnx.com)
 

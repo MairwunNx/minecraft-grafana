@@ -17,7 +17,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 
 ## Rules that keep it working
 
-- The uid stays `minecraft-worldapi`: Moonlands' links and both READMEs point at `/d/minecraft-worldapi/minecraft`.
+- The uid stays `minecraft-worldapi`: Moonlands' links, both READMEs, and grafana.com point at `/d/minecraft-worldapi`. The title stays “Minecraft server (minecraft-exporter)”, as on grafana.com, and unlike Moonlands' TickScope dashboard “Minecraft”: Grafana refuses two dashboards with one title in a folder.
 - Data sources come only from the `datasource` (Prometheus) and `worldapi` (Infinity) variables. `${DS_…}` inputs work on import but not in a provisioned file, which Moonlands uses.
 - Every query filters by `instance="$instance"`, and per-player ones by `player=~"$player"` too.
 - Use only metrics minecraft-exporter documents in its README. A new metric lands in the exporter first, and the dashboard's release follows the exporter's.
@@ -35,7 +35,8 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 - README.md and README.RU.md: what's on the dashboard and how to import it. Change both together; refresh `media/dashboard.png` when the look changes (1600 px wide, Moonlands' data, the last 24 hours).
 - After a change, add it to CHANGELOG.md in the same push: under the topmost “## X.Y.Z” section while that version isn't released (`gh release view vX.Y.Z` fails), or under a new section with the next version.
 - Release: `gh workflow run release.yml -R MairwunNx/minecraft-grafana -f version=X.Y.Z`. It attaches `minecraft.json`, the dashboard with the version in its description, to the GitHub release; `releases/latest/download/minecraft.json` always reaches the newest. Its `deploy` job starts `ship-plugin.yml` in MairwunNx/minecraft, which copies it over Moonlands' file.
-- grafana.com has no API for new revisions, so upload each release on the website: sign in as the owner, open the dashboard GRAFANA_ID under “My dashboards”, Revisions → upload `minecraft.json` from the release, and update the README and screenshot there when they changed. The owner signs in; ask when you can't reach the account.
+- grafana.com has no API for new revisions, so upload each release on the website: the dashboard is [25941](https://grafana.com/grafana/dashboards/25941) in the owner's organization `mairwunnx` (`https://grafana.com/orgs/mairwunnx/dashboards`). Open it, Revisions → upload `minecraft.json` from the release, and update the README and screenshot there when they changed. The owner signs in; ask when you can't reach the account.
+- That site's forms ignore values set by script: click into a field, type, and press Tab before Save, then check what stuck with `GET https://grafana.com/api/dashboards/25941`. Its README there is a shorter take on README.md.
 
 ## Commits
 
