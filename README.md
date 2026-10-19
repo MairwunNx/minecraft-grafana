@@ -20,6 +20,7 @@
 - 🧑‍🤝‍🧑 **Players:** who's online with health, food, level, and ping, who played most in the time range, and every player's lifetime statistics: play time, last seen, advancements, deaths, mobs, blocks, diamonds, distance, experience.
 - 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, new players, and events from other plugins, like boss kills.
 - 💬 **Chat and events** as tables, read straight from WorldAPI.
+- 🔐 **With a WorldAPI token behind the exporter:** the host's load, memory, and disk; what lags in each world, from items on the ground to the busiest chunks and their hoppers; plugins, bans, and Mo’Bosses; console lines, warnings by source, and a table of the latest warnings and errors; where each player stands, and who chats how much. Panels without their permission stay empty, and the Exporter row shows which endpoints the token opens.
 
 Pick a server and players at the top; restarts show as marks on every graph.
 
@@ -39,11 +40,14 @@ These two tables ask WorldAPI directly, through the [Infinity](https://grafana.c
 2. Add an Infinity data source. Set its URL to your WorldAPI, like `http://minecraft:8110/api/v1`, and its authentication to “Bearer token” with a WorldAPI token that has `events:read`, and `chat:read` for chat.
 3. Pick it in the dashboard's “WorldAPI” variable.
 
-WorldAPI records chat only with `events.chat: true` in its config. Grafana calls WorldAPI from its own server, so the token never reaches a browser. Anyone who can open the dashboard can read the chat, though: keep it off a public Grafana unless your players agree.
+WorldAPI records chat only with `events.chat: true` in its config, and shows the console table only to a token with `logs:read`. Grafana calls WorldAPI from its own server, so the token never reaches a browser.
 
-## Try it live
+> [!WARNING]
+> **Keep this dashboard private when a token feeds it.** Every viewer of a Grafana can send any query to its data sources, not only the dashboard's. Through an Infinity data source with a WorldAPI token, a viewer reads everything that token may: chat, the console, every player's position. Through Prometheus, they read every metric the exporter gets with its token. Turn anonymous access off (`GF_AUTH_ANONYMOUS_ENABLED=false`), keep Grafana off public addresses or behind a login, and give WorldAPI tokens read permissions only: minecraft-exporter's README shows one.
 
-Moonlands, my hard survival server with friends, shows this dashboard to everyone: [minecraft.mairwunnx.com/grafana](https://minecraft.mairwunnx.com/grafana/d/minecraft-worldapi).
+## On Moonlands
+
+Moonlands, my hard survival server with friends, runs this dashboard in a private Grafana. Its site, [minecraft.mairwunnx.com](https://minecraft.mairwunnx.com), shows the players and the hall of fame to everyone.
 
 [![Play on Moonlands: pure vanilla, hard mobs, AI, claims. minecraft.mairwunnx.com](https://raw.githubusercontent.com/MairwunNx/minecraft-worldapi/master/media/og-adv-image.png)](https://minecraft.mairwunnx.com)
 

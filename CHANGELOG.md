@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0
+
+For minecraft-exporter 1.1.0 and a WorldAPI token behind it.
+
+- **Host:** load against the CPU count, memory, free disk, and open files.
+- **Lag sources:** items on the ground, villagers, pets and named mobs, and a table of the busiest chunks with their entities, block entities, and hoppers.
+- **Plugins:** the plugin list with versions, bans, operators, the whitelist, and Mo’Bosses' bosses alive, spawned, and killed by class.
+- **Console:** lines by level, warnings and errors by source, and a table of the latest warnings and errors read from WorldAPI.
+- **Players:** coordinates in “Online now”, and chat messages by player.
+- **Exporter:** a table of the endpoints the token opens; failed requests no longer count missing permissions.
+- The README warns to keep the dashboard private when a token feeds it.
+
 ## 1.0.0
 
 The first release, for minecraft-exporter 1.0.0.
