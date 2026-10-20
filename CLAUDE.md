@@ -13,7 +13,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 |---|---|
 | `dashboard.json` | The dashboard, the only source: edit it, never a copy |
 | `scripts/check.py` | What CI checks: the uid, unique ids, the grid, data sources through variables, `minecraft_` metrics only |
-| `media/dashboard.png` | The screenshot in both READMEs and on grafana.com |
+| `media/*.png` | The screenshots in both READMEs and on grafana.com, one per group of rows |
 
 ## Rules that keep it working
 
@@ -33,7 +33,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 
 ## Docs and releases
 
-- README.md and README.RU.md only show the dashboard off: what you get, a 3-step Get started, links into the wiki, Related projects. Change both together; refresh `media/dashboard.png` when the look changes (1600 px wide, Moonlands' data, the last 24 hours).
+- README.md and README.RU.md only show the dashboard off: what you get, a 3-step Get started, links into the wiki, Related projects. Change both together; refresh the screenshots in `media/` when the look changes (1600 px wide, the last 24 hours, one per group of rows). They show made-up data, so every panel draws something: minecraft-exporter's `examples/mock/` fakes a day of a busy server.
 - The manual lives in the GitHub wiki (`https://github.com/MairwunNx/minecraft-grafana.wiki.git`, English only). When a panel, variable, or permission changes, update “What the dashboard shows”, “Data sources”, or “Variables” there; release steps live in “Releasing”.
 - After a change, add it to CHANGELOG.md in the same push: under the topmost “## X.Y.Z” section while that version isn't released (`gh release view vX.Y.Z` fails), or under a new section with the next version.
 - Release: `gh workflow run release.yml -R MairwunNx/minecraft-grafana -f version=X.Y.Z`. It attaches `minecraft.json`, the dashboard with the version in its description, to the GitHub release; `releases/latest/download/minecraft.json` always reaches the newest. Its `deploy` job starts `ship-plugin.yml` in MairwunNx/minecraft, which copies it over Moonlands' file.

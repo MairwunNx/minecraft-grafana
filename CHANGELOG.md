@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0
+
+For minecraft-exporter 2.0.0; it works with 1.1.0 too.
+
+- **Server:** the tiles go from the server to the players to performance: status, version, uptime, players online and ever, TPS, tick time, heap.
+- **Worlds:** the weather timeline names its states in a legend, a rain with thunder counts as a thunderstorm, and the day, the time of day, and the weather now sit in tiles of their own.
+- **Players:** “Online now” adds idle time, time played in the range and in all, deaths, and advancements, with bars for health and food. “Every player” adds players killed, hearts lost, items crafted, and trades.
+- **Rankings as tables:** the most common entities, time played, deaths by cause, chat by player, and warnings by source show full names with a bar each, and a source shows its short name.
+- **Plugins:** the plugin list moves next to the console; the bans, operators, whitelist, and Mo’Bosses panels are gone.
+- The READMEs show one screenshot per group of rows, taken on a made-up server.
+
 ## 1.1.0
 
 For minecraft-exporter 1.1.0 and a WorldAPI token behind it.

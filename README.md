@@ -12,18 +12,38 @@
 
 [Русская версия](README.RU.md)
 
-![The dashboard](media/dashboard.png)
+![Server, performance, and host](media/overview.png)
 
 ## What you get
 
-- 🟢 **Server at a glance:** up or down, players online, TPS, tick time, heap, uptime, version.
+- 🟢 **Server at a glance:** up or down, version, uptime, players online and ever, TPS, tick time, heap.
 - ⏱️ **Performance:** TPS, tick times by percentile against the 50 ms line where the server starts to lag, heap, CPU, garbage collection.
-- 🌍 **Worlds:** loaded chunks, entities, block entities, the most common entities, weather, the day count.
-- 🧑‍🤝‍🧑 **Players:** who's online with health, food, level, and ping, who played most in the time range, and every player's lifetime statistics.
-- 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, new players, and other plugins' events, like boss kills.
+- 🌍 **Worlds:** loaded chunks, entities, block entities, the most common entities, a weather timeline, the day and the time of day.
+- 🧑‍🤝‍🧑 **Players:** who's online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player's lifetime statistics, from deaths to diamonds.
+- 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, chat by player, new players, and other plugins' events.
 - 💬 **Chat, events, and console warnings** as tables, read straight from WorldAPI.
-- 🔐 **More with a WorldAPI token:** the host's load and disk, what lags in each world down to the busiest chunks, plugins, bans, Mo’Bosses, and the console.
+- 🔐 **More with a WorldAPI token:** the host's load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
 - 🛰️ **Many servers, one dashboard:** pick a server and players at the top; restarts show as marks on every graph.
+
+### A look around
+
+Worlds and what crowds them, down to the busiest chunks:
+
+![Worlds and lag sources](media/worlds.png)
+
+Who's online, where, and how they're doing, and every player's lifetime statistics:
+
+![Players](media/players.png)
+
+What players did in the time range:
+
+![Activity](media/activity.png)
+
+Plugins, the console, the chat, and events:
+
+![Plugins, console, chat, and events](media/console.png)
+
+The screenshots show a made-up server, so every panel has something to draw.
 
 > [!WARNING]
 > **Keep this dashboard private when a token feeds it.** Every viewer of a Grafana can send any query to its data sources and read everything the token may: chat, the console, every player's position. [Keeping it private](https://github.com/MairwunNx/minecraft-grafana/wiki/Keeping-it-private) says what to do.
