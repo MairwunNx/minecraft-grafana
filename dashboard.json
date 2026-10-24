@@ -5882,395 +5882,6 @@
     },
     {
       "type": "row",
-      "title": "Mo’Bosses",
-      "collapsed": true,
-      "panels": [
-        {
-          "type": "stat",
-          "title": "Bosses",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${worldapi}"
-          },
-          "description": "Bosses alive now, and spawned and killed since Mo’Bosses first ran. Read from WorldAPI's `/extensions/mobosses`: needs Mo’Bosses, 2.9.0 or newer with WorldAPI 4.0; without it, the panel shows an error.",
-          "targets": [
-            {
-              "refId": "A",
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${worldapi}"
-              },
-              "type": "json",
-              "source": "url",
-              "format": "table",
-              "parser": "backend",
-              "url": "/extensions/mobosses/stats",
-              "root_selector": "",
-              "url_options": {
-                "method": "GET",
-                "data": "",
-                "params": []
-              },
-              "columns": [
-                {
-                  "selector": "alive",
-                  "text": "Alive",
-                  "type": "number"
-                },
-                {
-                  "selector": "spawned",
-                  "text": "Spawned",
-                  "type": "number"
-                },
-                {
-                  "selector": "killed",
-                  "text": "Killed",
-                  "type": "number"
-                }
-              ]
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "unit": "none",
-              "decimals": 0,
-              "color": {
-                "mode": "thresholds"
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "text",
-                    "value": null
-                  }
-                ]
-              },
-              "mappings": []
-            },
-            "overrides": []
-          },
-          "options": {
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "center",
-            "textMode": "value_and_name",
-            "wideLayout": true,
-            "showPercentChange": false,
-            "orientation": "vertical"
-          },
-          "id": 75,
-          "gridPos": {
-            "h": 4,
-            "w": 12,
-            "x": 0,
-            "y": 162
-          },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "indexByName": {
-                  "Alive": 0,
-                  "Spawned": 1,
-                  "Killed": 2
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "table",
-          "title": "Bosses by type and class",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${worldapi}"
-          },
-          "description": "Every boss type and class that has spawned, with how many players killed. Read from WorldAPI's `/extensions/mobosses`: needs Mo’Bosses, 2.9.0 or newer with WorldAPI 4.0; without it, the panel shows an error.",
-          "targets": [
-            {
-              "refId": "A",
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${worldapi}"
-              },
-              "type": "json",
-              "source": "url",
-              "format": "table",
-              "parser": "backend",
-              "url": "/extensions/mobosses/stats",
-              "root_selector": "counts",
-              "url_options": {
-                "method": "GET",
-                "data": "",
-                "params": []
-              },
-              "columns": [
-                {
-                  "selector": "type",
-                  "text": "Type",
-                  "type": "string"
-                },
-                {
-                  "selector": "class",
-                  "text": "Class",
-                  "type": "string"
-                },
-                {
-                  "selector": "spawned",
-                  "text": "Spawned",
-                  "type": "number"
-                },
-                {
-                  "selector": "killed",
-                  "text": "Killed",
-                  "type": "number"
-                }
-              ]
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": true
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Spawned"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "gauge",
-                      "mode": "basic",
-                      "valueDisplayMode": "text"
-                    }
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "fixed",
-                      "fixedColor": "blue"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Killed"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "gauge",
-                      "mode": "basic",
-                      "valueDisplayMode": "text"
-                    }
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "fixed",
-                      "fixedColor": "blue"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "options": {
-            "showHeader": true,
-            "cellHeight": "sm",
-            "sortBy": [
-              {
-                "displayName": "Spawned",
-                "desc": true
-              }
-            ]
-          },
-          "id": 76,
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 0,
-            "y": 166
-          },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "indexByName": {
-                  "Type": 0,
-                  "Class": 1,
-                  "Spawned": 2,
-                  "Killed": 3
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "table",
-          "title": "Hunters",
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${worldapi}"
-          },
-          "description": "The best boss hunters by Mo’Bosses level, with bosses killed and experience. Read from WorldAPI's `/extensions/mobosses`: needs Mo’Bosses, 2.9.0 or newer with WorldAPI 4.0; without it, the panel shows an error.",
-          "targets": [
-            {
-              "refId": "A",
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${worldapi}"
-              },
-              "type": "json",
-              "source": "url",
-              "format": "table",
-              "parser": "backend",
-              "url": "/extensions/mobosses/hunters",
-              "root_selector": "",
-              "url_options": {
-                "method": "GET",
-                "data": "",
-                "params": [
-                  {
-                    "key": "limit",
-                    "value": "50"
-                  }
-                ]
-              },
-              "columns": [
-                {
-                  "selector": "name",
-                  "text": "Player",
-                  "type": "string"
-                },
-                {
-                  "selector": "level",
-                  "text": "Level",
-                  "type": "number"
-                },
-                {
-                  "selector": "kills",
-                  "text": "Bosses killed",
-                  "type": "number"
-                },
-                {
-                  "selector": "experience",
-                  "text": "Experience",
-                  "type": "number"
-                }
-              ]
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": true
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Bosses killed"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "gauge",
-                      "mode": "basic",
-                      "valueDisplayMode": "text"
-                    }
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "fixed",
-                      "fixedColor": "blue"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Player"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 160
-                  }
-                ]
-              }
-            ]
-          },
-          "options": {
-            "showHeader": true,
-            "cellHeight": "sm",
-            "sortBy": [
-              {
-                "displayName": "Level",
-                "desc": true
-              }
-            ]
-          },
-          "id": 77,
-          "gridPos": {
-            "h": 13,
-            "w": 12,
-            "x": 12,
-            "y": 162
-          },
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "indexByName": {
-                  "Player": 0,
-                  "Level": 1,
-                  "Bosses killed": 2,
-                  "Experience": 3
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "id": 78,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 161
-      }
-    },
-    {
-      "type": "row",
       "title": "JVM",
       "collapsed": true,
       "panels": [
@@ -6341,7 +5952,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 163
+            "y": 162
           }
         },
         {
@@ -6435,7 +6046,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 163
+            "y": 162
           }
         },
         {
@@ -6506,7 +6117,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 171
+            "y": 170
           }
         },
         {
@@ -6578,7 +6189,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 171
+            "y": 170
           }
         },
         {
@@ -6648,7 +6259,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 171
+            "y": 170
           }
         }
       ],
@@ -6657,7 +6268,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 162
+        "y": 161
       }
     },
     {
@@ -6733,7 +6344,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 164
+            "y": 163
           }
         },
         {
@@ -6806,7 +6417,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 164
+            "y": 163
           },
           "interval": "5m"
         },
@@ -6908,7 +6519,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 172
+            "y": 171
           }
         }
       ],
@@ -6917,7 +6528,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 163
+        "y": 162
       }
     }
   ]
