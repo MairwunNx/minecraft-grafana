@@ -12,7 +12,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 | Path | What it does |
 |---|---|
 | `dashboard.json` | The dashboard, the only source: edit it, never a copy |
-| `scripts/check.py` | What CI checks: the uid, unique ids, the grid, data sources through variables, `minecraft_` metrics only |
+| `scripts/check.py` | What CI checks: the uid, unique ids, the grid, data sources through variables, `minecraft_` metrics only, Infinity queries that only GET |
 | `media/*.png` | The screenshots in both READMEs and on grafana.com, one per group of rows |
 
 ## Rules that keep it working

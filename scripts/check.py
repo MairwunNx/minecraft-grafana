@@ -40,6 +40,10 @@ for panel in walk(dashboard["panels"]):
         if source and DATASOURCES.get(source.get("type")) != source.get("uid"):
             problems.append(f"{title}: data source {source} isn't one of the variables")
     for target in panel.get("targets", []):
+        # Infinity sends WorldAPI's token along: a query may only read.
+        method = target.get("url_options", {}).get("method", "GET")
+        if "url" in target and method != "GET":
+            problems.append(f"{title}: Infinity query uses {method}; only GET may reach WorldAPI")
         for metric in re.findall(r"\b([a-z_]+)\{", target.get("expr", "")):
             if not metric.startswith("minecraft_"):
                 problems.append(f"{title}: {metric} isn't a minecraft-exporter metric")
