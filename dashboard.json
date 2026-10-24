@@ -6360,7 +6360,7 @@
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
-              "expr": "sum by (endpoint) (increase(minecraft_exporter_request_errors_total{instance=\"$instance\"}[$__rate_interval]))",
+              "expr": "sum by (endpoint) (increase(minecraft_exporter_request_errors_total{instance=\"$instance\"}[$__interval]))",
               "legendFormat": "{{endpoint}}",
               "refId": "A",
               "range": true,
@@ -6418,7 +6418,8 @@
             "w": 12,
             "x": 12,
             "y": 163
-          }
+          },
+          "interval": "5m"
         },
         {
           "type": "table",
