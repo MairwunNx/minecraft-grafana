@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- 🐛 The “Day” tile shows the whole number, such as 1094, instead of “1K”.
+
 ## 1.4.0
 
 For minecraft-exporter 3.0.0 or newer.
