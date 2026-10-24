@@ -2234,7 +2234,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "minecraft_world_days_total{instance=\"$instance\"} and on (world, instance) minecraft_world_info{instance=\"$instance\", environment=\"normal\"}",
+          "expr": "minecraft_world_days{instance=\"$instance\"} and on (world, instance) minecraft_world_info{instance=\"$instance\", environment=\"normal\"}",
           "legendFormat": "{{world}}",
           "refId": "A",
           "range": false,
