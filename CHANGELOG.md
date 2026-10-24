@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0
+
+For minecraft-exporter 3.0.0 or newer.
+
+- 💥 **The day comes from `minecraft_world_days`,** the gauge minecraft-exporter 3.0.0 exports in place of `minecraft_world_days_total`. With an older exporter, the “Day” tile stays empty.
+- **Removed: the Mo’Bosses row.** It read one plugin's data, which doesn't belong in a dashboard for any server.
+- The READMEs and grafana.com show fresh screenshots of the current rows.
+
 ## 1.3.0
 
 For minecraft-exporter 2.0.0 or newer; checked against WorldAPI 4.0.0.
