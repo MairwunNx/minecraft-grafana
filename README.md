@@ -22,6 +22,7 @@
 - 🧑‍🤝‍🧑 **Players:** who's online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player's lifetime statistics, from deaths to diamonds.
 - 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, chat by player, new players, and other plugins' events.
 - 💬 **Chat, events, and console warnings** as tables, read straight from WorldAPI.
+- ⚔️ **Mo’Bosses,** when the server runs it: bosses alive, spawned, and killed by type and class, and the best hunters, read straight from WorldAPI.
 - 🔐 **More with a WorldAPI token:** the host's load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
 - 🛰️ **Many servers, one dashboard:** pick a server and players at the top; restarts show as marks on every graph.
 
