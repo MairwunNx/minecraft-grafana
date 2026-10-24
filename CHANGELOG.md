@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0
+
+For minecraft-exporter 2.0.0 or newer; checked against WorldAPI 4.0.0.
+
+- ⚔️ **Mo’Bosses is back, read from WorldAPI.** A folded row shows bosses alive, spawned, and killed, every boss type and class, and the 50 best hunters, through the Infinity data source at `/extensions/mobosses`. It needs Mo’Bosses, 2.9.0 or newer with WorldAPI 4.0; on a server without it, the row shows errors and the rest of the dashboard stays as it was.
+- **Failed requests** count in five-minute bars that don't overlap, so a bar shows how many requests failed in its five minutes.
+- The check in CI refuses an Infinity query that isn't a `GET`: Infinity sends WorldAPI's token along, and a dashboard only reads.
+
 ## 1.2.0
 
 For minecraft-exporter 2.0.0; it works with 1.1.0 too.
