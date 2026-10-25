@@ -141,6 +141,48 @@
           "value": "$__all"
         },
         "hide": 0
+      },
+      {
+        "type": "query",
+        "name": "multiplayer",
+        "label": "Multiplayer",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "refresh": 2,
+        "sort": 0,
+        "definition": "label_values(minecraft_info{instance=\"$instance\", side!=\"integrated\"}, instance)",
+        "query": {
+          "query": "label_values(minecraft_info{instance=\"$instance\", side!=\"integrated\"}, instance)",
+          "refId": "multiplayer"
+        },
+        "current": {},
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "description": "Hidden: the rows that repeat over it show only on a server."
+      },
+      {
+        "type": "query",
+        "name": "singleplayer",
+        "label": "Singleplayer",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "refresh": 2,
+        "sort": 0,
+        "definition": "label_values(minecraft_info{instance=\"$instance\", side=\"integrated\"}, instance)",
+        "query": {
+          "query": "label_values(minecraft_info{instance=\"$instance\", side=\"integrated\"}, instance)",
+          "refId": "singleplayer"
+        },
+        "current": {},
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "description": "Hidden: the rows that repeat over it show only for a singleplayer world."
       }
     ]
   },
@@ -200,7 +242,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "minecraft_up{instance=\"$instance\"}",
+          "expr": "max(minecraft_up{instance=\"$instance\"}) + max(minecraft_paused{instance=\"$instance\"} or vector(0))",
           "legendFormat": "__auto",
           "refId": "A",
           "range": false,
@@ -223,6 +265,10 @@
               {
                 "color": "green",
                 "value": 1
+              },
+              {
+                "color": "blue",
+                "value": 2
               }
             ]
           },
@@ -231,10 +277,16 @@
               "type": "value",
               "options": {
                 "0": {
-                  "text": "Down"
+                  "text": "Down",
+                  "index": 0
                 },
                 "1": {
-                  "text": "Up"
+                  "text": "Up",
+                  "index": 1
+                },
+                "2": {
+                  "text": "Paused",
+                  "index": 2
                 }
               }
             }
@@ -257,11 +309,11 @@
         "wideLayout": true,
         "showPercentChange": false
       },
-      "description": "Whether the exporter reached WorldAPI on its last scrape.",
+      "description": "Whether the exporter reached WorldAPI on its last scrape, and whether a singleplayer game is paused.",
       "id": 2,
       "gridPos": {
         "h": 4,
-        "w": 3,
+        "w": 4,
         "x": 0,
         "y": 1
       }
@@ -279,8 +331,8 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "minecraft_info{instance=\"$instance\"}",
-          "legendFormat": "{{brand}} {{minecraft_version}} · build {{build}}",
+          "expr": "label_replace(minecraft_info{instance=\"$instance\"}, \"build\", \" · build $1\", \"build\", \"(.+)\")",
+          "legendFormat": "{{brand}} {{minecraft_version}}{{build}}",
           "refId": "A",
           "range": false,
           "instant": true
@@ -320,12 +372,12 @@
         "wideLayout": true,
         "showPercentChange": false
       },
-      "description": "The server software, and the WorldAPI version in the tooltip's labels.",
+      "description": "The server software (Paper, Fabric, or NeoForge), and the WorldAPI version, platform, and side in the tooltip's labels.",
       "id": 8,
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 3,
+        "w": 4,
+        "x": 4,
         "y": 1
       }
     },
@@ -387,135 +439,8 @@
       "id": 7,
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 6,
-        "y": 1
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Players online",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "expr": "minecraft_players_online{instance=\"$instance\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
-          "range": true,
-          "instant": false
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text",
-                "value": null
-              }
-            ]
-          },
-          "mappings": [],
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "textMode": "value",
-        "wideLayout": true,
-        "showPercentChange": false
-      },
-      "id": 3,
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 9,
-        "y": 1
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Players ever",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "expr": "minecraft_players_known{instance=\"$instance\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
-          "range": true,
-          "instant": false
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text",
-                "value": null
-              }
-            ]
-          },
-          "mappings": [],
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "textMode": "value",
-        "wideLayout": true,
-        "showPercentChange": false
-      },
-      "description": "Everyone who has joined the server at least once.",
-      "id": 9,
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 12,
+        "w": 4,
+        "x": 8,
         "y": 1
       }
     },
@@ -582,12 +507,12 @@
         "wideLayout": true,
         "showPercentChange": false
       },
-      "description": "Ticks per second over the last minute; 20 is full speed.",
+      "description": "Ticks per second over the last minute; 20 is full speed. A paused singleplayer game doesn't tick, and Status says so.",
       "id": 4,
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 15,
+        "w": 4,
+        "x": 12,
         "y": 1
       }
     },
@@ -658,8 +583,8 @@
       "id": 5,
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 18,
+        "w": 4,
+        "x": 16,
         "y": 1
       }
     },
@@ -730,10 +655,603 @@
       "id": 6,
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 21,
+        "w": 4,
+        "x": 20,
         "y": 1
       }
+    },
+    {
+      "type": "row",
+      "title": "Your world",
+      "collapsed": false,
+      "panels": [],
+      "repeat": "singleplayer",
+      "id": 75,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "description": "A singleplayer world with the WorldAPI mod: shown instead of the server's players, console, and chat."
+    },
+    {
+      "type": "stat",
+      "title": "Game",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "max(minecraft_paused{instance=\"$instance\"})",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Playing",
+                  "index": 0
+                },
+                "1": {
+                  "text": "Paused",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "Whether the game runs or sits paused in its menu; a paused world doesn't tick.",
+      "id": 76,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 6
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Play time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "sum(minecraft_player_play_time_seconds_total{instance=\"$instance\", player=~\"$player\"})",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0,
+          "noValue": "0"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "Time played in this world.",
+      "id": 77,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 6
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Level",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "max(minecraft_player_level{instance=\"$instance\", player=~\"$player\"})",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0,
+          "noValue": "0"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "The experience level now.",
+      "id": 78,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 6
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Deaths",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "sum(minecraft_player_deaths_total{instance=\"$instance\", player=~\"$player\"})",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0,
+          "noValue": "0"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "Deaths in this world.",
+      "id": 79,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 6
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Diamonds mined",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "sum(minecraft_player_diamonds_mined_total{instance=\"$instance\", player=~\"$player\"})",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0,
+          "noValue": "0"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "Diamond ore mined, deepslate too.",
+      "id": 80,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 6
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Advancements",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "sum(minecraft_player_advancements{instance=\"$instance\", player=~\"$player\"})",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0,
+          "noValue": "0"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "Advancements done, recipes aside.",
+      "id": 81,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 6
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Health and food",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "minecraft_player_health{instance=\"$instance\", player=~\"$player\"}",
+          "legendFormat": "Health · {{player}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "minecraft_player_food{instance=\"$instance\", player=~\"$player\"}",
+          "legendFormat": "Food · {{player}}",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "max": 20,
+          "decimals": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "showPoints": "never",
+            "spanNulls": false,
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "description": "Health and food points, 20 each when full, while you play.",
+      "id": 82,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      }
+    },
+    {
+      "type": "table",
+      "title": "Mods",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "minecraft_plugin_enabled{instance=\"$instance\"}",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": false,
+          "instant": true,
+          "format": "table"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "kind": true
+            },
+            "renameByName": {
+              "plugin": "Mod",
+              "version": "Version",
+              "Value": "State"
+            },
+            "indexByName": {
+              "plugin": 0,
+              "version": 1,
+              "Value": 2
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "State"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "0": {
+                        "text": "Disabled",
+                        "color": "red"
+                      },
+                      "1": {
+                        "text": "Enabled",
+                        "color": "green"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "sortBy": [
+          {
+            "displayName": "Plugin",
+            "desc": false
+          }
+        ]
+      },
+      "id": 83,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "description": "Mods in the game with their versions. Needs a WorldAPI token with server:read."
     },
     {
       "type": "row",
@@ -745,7 +1263,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 18
       }
     },
     {
@@ -843,7 +1361,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 6
+        "y": 19
       }
     },
     {
@@ -990,7 +1508,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 6
+        "y": 19
       }
     },
     {
@@ -1124,7 +1642,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 27
       }
     },
     {
@@ -1196,7 +1714,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 27
       }
     },
     {
@@ -1267,7 +1785,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 14
+        "y": 27
       }
     },
     {
@@ -1281,7 +1799,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 35
       }
     },
     {
@@ -1393,7 +1911,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 23
+        "y": 36
       }
     },
     {
@@ -1528,7 +2046,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 23
+        "y": 36
       }
     },
     {
@@ -1600,7 +2118,7 @@
         "h": 8,
         "w": 3,
         "x": 12,
-        "y": 23
+        "y": 36
       }
     },
     {
@@ -1663,7 +2181,7 @@
         "h": 8,
         "w": 3,
         "x": 15,
-        "y": 23
+        "y": 36
       }
     },
     {
@@ -1777,7 +2295,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 23
+        "y": 36
       }
     },
     {
@@ -1790,7 +2308,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 44
       }
     },
     {
@@ -1860,7 +2378,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 32
+        "y": 45
       }
     },
     {
@@ -1931,7 +2449,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 32
+        "y": 45
       }
     },
     {
@@ -2002,7 +2520,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 32
+        "y": 45
       }
     },
     {
@@ -2130,7 +2648,7 @@
         "h": 9,
         "w": 10,
         "x": 0,
-        "y": 40
+        "y": 53
       }
     },
     {
@@ -2217,7 +2735,7 @@
         "h": 9,
         "w": 10,
         "x": 10,
-        "y": 40
+        "y": 53
       }
     },
     {
@@ -2284,7 +2802,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 40
+        "y": 53
       }
     },
     {
@@ -2412,7 +2930,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 43
+        "y": 56
       }
     },
     {
@@ -2500,7 +3018,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 46
+        "y": 59
       }
     },
     {
@@ -2514,7 +3032,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 62
       }
     },
     {
@@ -2587,7 +3105,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 50
+        "y": 63
       }
     },
     {
@@ -2660,7 +3178,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 50
+        "y": 63
       }
     },
     {
@@ -2744,7 +3262,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 50
+        "y": 63
       }
     },
     {
@@ -2889,7 +3407,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 71
       }
     },
     {
@@ -2902,7 +3420,135 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 79
+      },
+      "repeat": "multiplayer"
+    },
+    {
+      "type": "stat",
+      "title": "Players online",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "minecraft_players_online{instance=\"$instance\"}",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": true,
+          "instant": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "id": 3,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 80
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Players ever",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "minecraft_players_known{instance=\"$instance\"}",
+          "legendFormat": "__auto",
+          "refId": "A",
+          "range": true,
+          "instant": false
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "mappings": [],
+          "decimals": 0
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "textMode": "value",
+        "wideLayout": true,
+        "showPercentChange": false
+      },
+      "description": "Everyone who has joined the server at least once.",
+      "id": 9,
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 84
       }
     },
     {
@@ -3025,9 +3671,9 @@
       "id": 35,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 67
+        "w": 10,
+        "x": 4,
+        "y": 80
       }
     },
     {
@@ -3096,9 +3742,9 @@
       "id": 36,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 67
+        "w": 10,
+        "x": 14,
+        "y": 80
       }
     },
     {
@@ -3675,7 +4321,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 75
+        "y": 88
       }
     },
     {
@@ -4123,7 +4769,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 83
+        "y": 96
       }
     },
     {
@@ -4136,7 +4782,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 94
+        "y": 107
       }
     },
     {
@@ -4246,7 +4892,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 95
+        "y": 108
       }
     },
     {
@@ -4370,7 +5016,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 95
+        "y": 108
       }
     },
     {
@@ -4443,7 +5089,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 103
+        "y": 116
       }
     },
     {
@@ -4516,7 +5162,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 103
+        "y": 116
       }
     },
     {
@@ -4587,7 +5233,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 103
+        "y": 116
       }
     },
     {
@@ -4717,7 +5363,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 111
+        "y": 124
       }
     },
     {
@@ -4845,7 +5491,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 111
+        "y": 124
       }
     },
     {
@@ -4918,7 +5564,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 119
+        "y": 132
       }
     },
     {
@@ -4991,7 +5637,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 119
+        "y": 132
       }
     },
     {
@@ -5004,12 +5650,13 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 127
-      }
+        "y": 140
+      },
+      "repeat": "multiplayer"
     },
     {
       "type": "table",
-      "title": "Plugins",
+      "title": "Plugins and mods",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
@@ -5039,14 +5686,16 @@
               "job": true
             },
             "renameByName": {
-              "plugin": "Plugin",
+              "plugin": "Name",
               "version": "Version",
-              "Value": "State"
+              "Value": "State",
+              "kind": "Kind"
             },
             "indexByName": {
               "plugin": 0,
-              "version": 1,
-              "Value": 2
+              "version": 2,
+              "Value": 3,
+              "kind": 1
             }
           }
         }
@@ -5110,9 +5759,9 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 128
+        "y": 141
       },
-      "description": "Plugins on the server with their versions. Needs a WorldAPI token with server:read."
+      "description": "Plugins on the server, or mods on Fabric and NeoForge, with their versions. Needs a WorldAPI token with server:read."
     },
     {
       "type": "timeseries",
@@ -5215,7 +5864,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 128
+        "y": 141
       }
     },
     {
@@ -5385,7 +6034,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 128
+        "y": 141
       }
     },
     {
@@ -5398,8 +6047,9 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 138
-      }
+        "y": 151
+      },
+      "repeat": "multiplayer"
     },
     {
       "type": "table",
@@ -5519,7 +6169,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 139
+        "y": 152
       }
     },
     {
@@ -5696,7 +6346,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 139
+        "y": 152
       },
       "transformations": [
         {
@@ -5877,7 +6527,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 151
+        "y": 164
       }
     },
     {
@@ -6268,7 +6918,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 161
+        "y": 174
       }
     },
     {
@@ -6528,7 +7178,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 162
+        "y": 175
       }
     }
   ]
