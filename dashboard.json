@@ -3553,7 +3553,7 @@
     },
     {
       "type": "timeseries",
-      "title": "Players online",
+      "title": "Online over time",
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
