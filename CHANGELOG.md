@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.1
+
+Needs Grafana 13: the dashboard is now a v2 dashboard, the only kind whose rows can hide by a condition.
+
+- 🐛 **A server no longer shows “Your world”**, and a singleplayer world no longer shows Players, “Plugins and console”, and “Chat and events”. In 1.5.0 those rows repeated over hidden variables, and Grafana draws a row once even when its variable is empty. Now each row shows by a condition on the hidden `side` variable, which replaces `multiplayer` and `singleplayer`.
+
 ## 1.5.0
 
 For minecraft-exporter 3.1.0 or newer, which labels where WorldAPI runs. With an older exporter every server reads as a dedicated one and the dashboard looks as before.

@@ -12,7 +12,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 | Path | What it does |
 |---|---|
 | `dashboard.json` | The dashboard, the only source: edit it, never a copy |
-| `scripts/check.py` | What CI checks: the uid, unique ids, the grid, data sources through variables, `minecraft_` metrics only, Infinity queries that only GET |
+| `scripts/check.py` | What CI checks: a v2 file, the uid and title, unique ids, the grid, data sources through variables, `minecraft_` metrics only, Infinity queries that only GET |
 | `media/*.png` | The screenshots in both READMEs and on grafana.com, one per group of rows |
 
 ## Rules that keep it working
@@ -20,7 +20,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 - The uid stays `minecraft-worldapi`: Moonlands' links, both READMEs, and grafana.com point at `/d/minecraft-worldapi`. The title stays “Minecraft server (minecraft-exporter)”, as on grafana.com: imports match it, and Grafana refuses two dashboards with one title in a folder.
 - Data sources come only from the `datasource` (Prometheus) and `worldapi` (Infinity) variables. `${DS_…}` inputs work on import but not in a provisioned file, which Moonlands uses.
 - Every query filters by `instance="$instance"`, and per-player ones by `player=~"$player"` too.
-- A singleplayer world (`minecraft_info{side="integrated"}`) and a server see different rows: rows that mean nothing alone repeat over the hidden `multiplayer` variable, “Your world” over `singleplayer`. Repeat rows, not panels: a panel repeated over an empty variable still shows. Check both views: minecraft-exporter's `examples/mock/` for a server, `examples/singleplayer/` against a game with WorldAPI's mod for a world.
+- A singleplayer world (`minecraft_info{side="integrated"}`) and a server see different rows: rows that mean nothing alone show when the hidden `side` variable isn't `integrated`, “Your world” when it is. That takes conditional rendering, so `dashboard.json` is a v2 dashboard (`apiVersion: dashboard.grafana.app/v2`) and needs Grafana 13. Never hide a row by repeating it: over an empty variable Grafana still draws it once. Check both views: minecraft-exporter's `examples/mock/` for a server, `examples/singleplayer/` against a game with WorldAPI's mod for a world.
 - Use only metrics minecraft-exporter documents on its wiki's Metrics page. A new metric lands in the exporter first, and the dashboard's release follows the exporter's.
 - Counters that start with the exporter (events, deaths by cause) lose their first event under `increase()`; the exporter seeds what it can at zero, and “Deaths by cause” subtracts the value at the start of the range instead.
 - Panels that need a WorldAPI permission say so in their description, as “Needs a WorldAPI token with logs:read.”, and the README's warning about keeping a token-fed dashboard private stays.
@@ -30,7 +30,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 
 1. `python3 -I scripts/check.py`.
 2. Run minecraft-exporter's `examples/` stack with `WORLDAPI_URL=https://minecraft.mairwunnx.com/worldapi/api/v1` (read-only; `WORLDAPI_TOKEN` from `~/.secrets/cloud.env` fills the chat table) and copy `dashboard.json` to `examples/grafana/dashboards/minecraft.json`; Grafana reloads it within seconds. Look at it in a browser at `http://localhost:3000`: every panel shows data, nothing overlaps, the tables have all their columns. Fresh Prometheus data needs half an hour before the bar charts fill.
-3. When a panel was edited in Grafana's editor, save it there, then Export → Export as JSON with “Export for sharing externally” off, and replace `dashboard.json` with it.
+3. When a panel was edited in Grafana's editor, save it there, then Export → Export as JSON with “Share dashboard with another instance” off, replace `dashboard.json` with it, and trim `metadata` to `name`.
 
 ## Docs and releases
 

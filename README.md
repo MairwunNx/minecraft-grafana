@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://grafana.com/grafana/dashboards/25941"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-25941-F46800?logo=grafana&logoColor=white"></a>
   <a href="https://github.com/MairwunNx/minecraft-grafana/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MairwunNx/minecraft-grafana?label=release"></a>
-  <img alt="Grafana 11+" src="https://img.shields.io/badge/Grafana-11%2B-F46800?logo=grafana&logoColor=white">
+  <img alt="Grafana 13+" src="https://img.shields.io/badge/Grafana-13%2B-F46800?logo=grafana&logoColor=white">
   <a href="https://github.com/MairwunNx/minecraft-grafana/actions/workflows/ci.yml"><img alt="Check" src="https://img.shields.io/github/actions/workflow/status/MairwunNx/minecraft-grafana/ci.yml?branch=master&label=check"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/MairwunNx/minecraft-grafana"></a>
 </p>
@@ -51,7 +51,7 @@ The screenshots show a made-up server, so every panel has something to draw.
 
 ## Get started
 
-1. In Grafana 11 or newer, open **Dashboards → New → Import** and enter `25941`, or upload [`minecraft.json`](https://github.com/MairwunNx/minecraft-grafana/releases/latest/download/minecraft.json) from the latest release.
+1. In Grafana 13 or newer, open **Dashboards → New → Import** and enter `25941`, or upload [`minecraft.json`](https://github.com/MairwunNx/minecraft-grafana/releases/latest/download/minecraft.json) from the latest release.
 2. Pick the Prometheus that scrapes [minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter), and, for the chat and event tables, an [Infinity data source](https://github.com/MairwunNx/minecraft-grafana/wiki/Data-sources) pointed at WorldAPI.
 3. Done: open the dashboard and pick your server at the top.
 

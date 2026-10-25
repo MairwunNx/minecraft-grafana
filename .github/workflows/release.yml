@@ -54,7 +54,8 @@ jobs:
           open(os.environ["NOTES"], "w", encoding="utf-8").write(notes + "\n")
           # The version shows in Grafana's dashboard settings, so an imported copy says which release it is.
           dashboard = json.load(open("dashboard.json", encoding="utf-8"))
-          dashboard["description"] = re.sub(r" \(v[\d.]+\)$", "", dashboard["description"]) + f" (v{version})"
+          spec = dashboard["spec"]
+          spec["description"] = re.sub(r" \(v[\d.]+\)$", "", spec["description"]) + f" (v{version})"
           with open("minecraft.json", "w", encoding="utf-8") as file:
               json.dump(dashboard, file, indent=2, ensure_ascii=False)
               file.write("\n")

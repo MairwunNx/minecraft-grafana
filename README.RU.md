@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://grafana.com/grafana/dashboards/25941"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-25941-F46800?logo=grafana&logoColor=white"></a>
   <a href="https://github.com/MairwunNx/minecraft-grafana/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MairwunNx/minecraft-grafana?label=release"></a>
-  <img alt="Grafana 11+" src="https://img.shields.io/badge/Grafana-11%2B-F46800?logo=grafana&logoColor=white">
+  <img alt="Grafana 13+" src="https://img.shields.io/badge/Grafana-13%2B-F46800?logo=grafana&logoColor=white">
   <a href="https://github.com/MairwunNx/minecraft-grafana/actions/workflows/ci.yml"><img alt="Check" src="https://img.shields.io/github/actions/workflow/status/MairwunNx/minecraft-grafana/ci.yml?branch=master&label=check"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/MairwunNx/minecraft-grafana"></a>
 </p>
@@ -51,7 +51,7 @@
 
 ## Как начать
 
-1. В Grafana 11 или новее откройте **Dashboards → New → Import** и введите `25941` или загрузите [`minecraft.json`](https://github.com/MairwunNx/minecraft-grafana/releases/latest/download/minecraft.json) из последнего релиза.
+1. В Grafana 13 или новее откройте **Dashboards → New → Import** и введите `25941` или загрузите [`minecraft.json`](https://github.com/MairwunNx/minecraft-grafana/releases/latest/download/minecraft.json) из последнего релиза.
 2. Выберите Prometheus, который опрашивает [minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter), а для таблиц чата и событий — [источник Infinity](https://github.com/MairwunNx/minecraft-grafana/wiki/Data-sources), направленный на WorldAPI.
 3. Готово: откройте дашборд и выберите сервер вверху.
 
