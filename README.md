@@ -8,7 +8,7 @@
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/MairwunNx/minecraft-grafana"></a>
 </p>
 
-📈 A Grafana dashboard for a Minecraft server: how fast it ticks, what fills its worlds, who plays and what they do, and the chat. It draws the metrics of [minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter), which reads the server through [WorldAPI](https://github.com/MairwunNx/minecraft-worldapi).
+📈 A Grafana dashboard for a Minecraft server on Paper, Fabric, or NeoForge, or for the world you play alone: how fast it ticks, what fills its worlds, who plays and what they do, and the chat. It draws the metrics of [minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter), which reads the server through [WorldAPI](https://github.com/MairwunNx/minecraft-worldapi).
 
 [Русская версия](README.RU.md)
 
@@ -16,13 +16,14 @@
 
 ## What you get
 
-- 🟢 **Server at a glance:** up or down, version, uptime, players online and ever, TPS, tick time, heap.
+- 🟢 **Server at a glance:** up, down, or paused, version, uptime, TPS, tick time, heap.
 - ⏱️ **Performance:** TPS, tick times by percentile against the 50 ms line where the server starts to lag, heap, CPU, garbage collection.
 - 🌍 **Worlds:** loaded chunks, entities, block entities, the most common entities, a weather timeline, the day and the time of day.
 - 🧑‍🤝‍🧑 **Players:** who's online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player's lifetime statistics, from deaths to diamonds.
 - 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, chat by player, new players, and other plugins' events.
 - 💬 **Chat, events, and console warnings** as tables, read straight from WorldAPI.
 - 🔐 **More with a WorldAPI token:** the host's load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
+- 🎮 **Your world, alone:** for a singleplayer world it hides the server's players, console, and chat, and shows your play time, level, deaths, diamonds, health and food, and mods.
 - 🛰️ **Many servers, one dashboard:** pick a server and players at the top; restarts show as marks on every graph.
 
 ### A look around

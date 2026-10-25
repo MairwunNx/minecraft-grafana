@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.5.0
+
+For minecraft-exporter 3.1.0 or newer, which labels where WorldAPI runs. With an older exporter every server reads as a dedicated one and the dashboard looks as before.
+
+- 🎮 **A row for singleplayer.** For a singleplayer world (`side="integrated"`), “Your world” shows whether the game runs or sits paused, play time, level, deaths, diamonds, advancements, health and food, and the mods.
+- 🙈 **No server rows alone.** Players, “Plugins and console”, and “Chat and events” show for servers only, through the hidden `multiplayer` and `singleplayer` variables.
+- ⏸️ **Status knows “Paused”**, and the TPS tile's description says a paused game doesn't tick.
+- 🧩 **Plugins and mods.** The table is “Plugins and mods”, with a `Kind` column from minecraft-exporter's new label, for Fabric and NeoForge servers.
+- 🔢 **The player counts moved.** “Players online” and “Players ever” open the Players row; the top row keeps six tiles.
+- The Version tile leaves out an empty build, as on Fabric and NeoForge: “Fabric 26.3”.
+
 ## 1.4.1
 
 - 🐛 The “Day” tile shows the whole number, such as 1094, instead of “1K”.
