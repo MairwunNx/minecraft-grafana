@@ -19,11 +19,11 @@
 - 🟢 **Server at a glance:** up, down, or paused, version, uptime, TPS, tick time, heap.
 - ⏱️ **Performance:** TPS, tick times by percentile against the 50 ms line where the server starts to lag, heap, CPU, garbage collection.
 - 🌍 **Worlds:** loaded chunks, entities, block entities, the most common entities, a weather timeline, the day and the time of day.
-- 🧑‍🤝‍🧑 **Players:** who's online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player's lifetime statistics, from deaths to diamonds.
-- 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, chat by player, new players, and other plugins' events.
+- 🧑‍🤝‍🧑 **Players:** who’s online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player’s lifetime statistics, from deaths to diamonds.
+- 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, chat by player, new players, and other plugins’ events.
 - 💬 **Chat, events, and console warnings** as tables, read straight from WorldAPI.
-- 🔐 **More with a WorldAPI token:** the host's load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
-- 🎮 **Your world, alone:** for a singleplayer world it hides the server's players, console, and chat, and shows your play time, level, deaths, diamonds, health and food, and mods.
+- 🔐 **More with a WorldAPI token:** the host’s load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
+- 🎮 **Your world, alone:** for a singleplayer world it hides the server’s players, console, and chat, and shows your play time, level, deaths, diamonds, health and food, and mods.
 - 🛰️ **Many servers, one dashboard:** pick a server and players at the top; restarts show as marks on every graph.
 
 ### A look around
@@ -32,7 +32,7 @@ Worlds and what crowds them, down to the busiest chunks:
 
 ![Worlds and lag sources](media/worlds.png)
 
-Who's online, where, and how they're doing, and every player's lifetime statistics:
+Who’s online, where, and how they’re doing, and every player’s lifetime statistics:
 
 ![Players](media/players.png)
 
@@ -47,7 +47,7 @@ Plugins, the console, the chat, and events:
 The screenshots show a made-up server, so every panel has something to draw.
 
 > [!WARNING]
-> **Keep this dashboard private when a token feeds it.** Every viewer of a Grafana can send any query to its data sources and read everything the token may: chat, the console, every player's position. [Keeping it private](https://github.com/MairwunNx/minecraft-grafana/wiki/Keeping-it-private) says what to do.
+> **Keep this dashboard private when a token feeds it.** Every viewer of a Grafana can send any query to its data sources and read everything the token may: chat, the console, every player’s position. [Keeping it private](https://github.com/MairwunNx/minecraft-grafana/wiki/Keeping-it-private) says what to do.
 
 ## Get started
 
@@ -70,8 +70,8 @@ The [wiki](https://github.com/MairwunNx/minecraft-grafana/wiki) has everything, 
 - **[Minecraft MCP](https://github.com/MairwunNx/minecraft-mcp)** – lets an AI client read and run a server through WorldAPI.
 - **[Allay](https://github.com/allay-ai/minecraft)** – an AI helper in the game: ask with `/ask`, right in the chat.
 - **[Allay Server](https://github.com/allay-ai/server)** – the backend behind Allay.
-- **[Mo’Joins](https://github.com/MairwunNx/mojoins)** – join and quit messages in each player's language.
-- **[Mo’Afks](https://github.com/MairwunNx/moafks)** – a safe AFK mode that doesn't block the night.
+- **[Mo’Joins](https://github.com/MairwunNx/mojoins)** – join and quit messages in each player’s language.
+- **[Mo’Afks](https://github.com/MairwunNx/moafks)** – a safe AFK mode that doesn’t block the night.
 - **[Mo’Bosses](https://github.com/MairwunNx/mobosses)** – monsters that spawn as bosses with classes, abilities, and loot.
 - **[minecraft-exporter](https://github.com/MairwunNx/minecraft-exporter)** – Prometheus metrics from WorldAPI.
 
