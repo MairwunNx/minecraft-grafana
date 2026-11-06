@@ -79,4 +79,9 @@ Moonlands, мой сервер для хардкорного выживания 
 
 [![Играйте на Moonlands: чистая ванилла, сложные мобы, ИИ, приваты. minecraft.mairwunnx.com](https://raw.githubusercontent.com/MairwunNx/minecraft-worldapi/master/media/og-adv-image.png)](https://minecraft.mairwunnx.com)
 
+## Раскрытие контента
+
+- 🤖 **Код от ИИ.** Большую часть дашборда собрали ИИ-агенты.
+- Генеративного ИИ, телеметрии, платных функций и рекламы нет.
+
 > 🫡 Сделал Павел Ерохин (Pavel Erokhin), он же mairwunnx.

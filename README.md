@@ -79,4 +79,9 @@ Moonlands, my hard survival server with friends, runs this dashboard in a privat
 
 [![Play on Moonlands: pure vanilla, hard mobs, AI, claims. minecraft.mairwunnx.com](https://raw.githubusercontent.com/MairwunNx/minecraft-worldapi/master/media/og-adv-image.png)](https://minecraft.mairwunnx.com)
 
+## Content disclosures
+
+- 🤖 **AI-generated code.** AI agents built much of the dashboard.
+- No generative AI, telemetry, paid features, or ads.
+
 > 🫡 Made by Pavel Erokhin (Павел Ерохин), aka mairwunnx.
