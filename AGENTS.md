@@ -5,7 +5,7 @@ A Grafana dashboard for the metrics of minecraft-exporter (MairwunNx/minecraft-e
 ## Talking to the owner
 
 - Reply in Russian, address the owner as «вы». Quotes «ёлочки», nested „лапки“, an em dash with spaces « — ».
-- Panel titles, descriptions, commit messages, and README.md are in English: curly quotes, an em dash without spaces or an en dash with spaces, never a hyphen as a dash. README.RU.md follows the Russian rules.
+- Panel titles, descriptions, commit messages, and README.md are in English: curly quotes, an en dash with spaces (never an em dash glued to the words or a hyphen as a dash), and no semicolon between clauses: a full stop, a comma, or a colon instead. README.RU.md follows the Russian rules.
 
 ## How it fits together
 
