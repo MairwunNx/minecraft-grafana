@@ -24,7 +24,7 @@
 - 💬 **Chat, events, and console warnings** as tables, read straight from WorldAPI.
 - 🔐 **More with a WorldAPI token:** the host’s load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
 - 🎮 **Your world, alone:** for a singleplayer world it hides the server’s players, console, and chat, and shows your play time, level, deaths, diamonds, health and food, and mods.
-- 🛰️ **Many servers, one dashboard:** pick a server and players at the top; restarts show as marks on every graph.
+- 🛰️ **Many servers, one dashboard:** pick a server and players at the top. Restarts show as marks on every graph.
 
 ### A look around
 
