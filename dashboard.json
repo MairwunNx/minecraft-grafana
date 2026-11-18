@@ -6265,7 +6265,21 @@
                   }
                 }
               ],
-              "transformations": [],
+              "transformations": [
+                {
+                  "kind": "organize",
+                  "spec": {
+                    "id": "organize",
+                    "options": {
+                      "indexByName": {
+                        "Time": 0,
+                        "Player": 1,
+                        "Message": 2
+                      }
+                    }
+                  }
+                }
+              ],
               "queryOptions": {}
             }
           },
@@ -6610,7 +6624,22 @@
                   }
                 }
               ],
-              "transformations": [],
+              "transformations": [
+                {
+                  "kind": "organize",
+                  "spec": {
+                    "id": "organize",
+                    "options": {
+                      "indexByName": {
+                        "Time": 0,
+                        "Level": 1,
+                        "Source": 2,
+                        "Message": 3
+                      }
+                    }
+                  }
+                }
+              ],
               "queryOptions": {}
             }
           },
