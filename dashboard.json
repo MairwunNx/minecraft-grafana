@@ -794,7 +794,7 @@
         "spec": {
           "id": 17,
           "title": "Load average",
-          "description": "Processes running or waiting for a CPU. Above the CPU count (dashed), work queues up.",
+          "description": "Processes running or waiting for a CPU. Above the CPU count (long dashes), work queues up. In a container, its CPU limit shows too (short dashes).",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -839,6 +839,27 @@
                       }
                     },
                     "refId": "B",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "minecraft_container_cpu_limit{instance=\"$instance\"}",
+                        "instant": false,
+                        "legendFormat": "container CPUs",
+                        "range": true
+                      }
+                    },
+                    "refId": "C",
                     "hidden": false
                   }
                 }
@@ -921,6 +942,35 @@
                         }
                       }
                     ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "container CPUs"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            4,
+                            4
+                          ],
+                          "fill": "dash"
+                        }
+                      },
+                      {
+                        "id": "custom.fillOpacity",
+                        "value": 0
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "text",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
                   }
                 ]
               }
@@ -933,7 +983,7 @@
         "spec": {
           "id": 18,
           "title": "Host memory",
-          "description": "Memory in use on the machine, and how much of it the server's process holds.",
+          "description": "Memory in use on the machine, and how much of it the server's process holds. In a container, its memory limit shows too (short dashes).",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -999,6 +1049,27 @@
                       }
                     },
                     "refId": "C",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "minecraft_container_memory_limit_bytes{instance=\"$instance\"}",
+                        "instant": false,
+                        "legendFormat": "container limit",
+                        "range": true
+                      }
+                    },
+                    "refId": "D",
                     "hidden": false
                   }
                 }
@@ -1091,6 +1162,35 @@
                       {
                         "id": "custom.fillOpacity",
                         "value": 0
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "container limit"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            4,
+                            4
+                          ],
+                          "fill": "dash"
+                        }
+                      },
+                      {
+                        "id": "custom.fillOpacity",
+                        "value": 0
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "text",
+                          "mode": "fixed"
+                        }
                       }
                     ]
                   }
