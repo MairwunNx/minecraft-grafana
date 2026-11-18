@@ -6318,18 +6318,6 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "Player"
-                    },
-                    "properties": [
-                      {
-                        "id": "custom.width",
-                        "value": 150
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
                       "options": "Level"
                     },
                     "properties": [
@@ -7825,7 +7813,7 @@
         "spec": {
           "id": 8,
           "title": "Version",
-          "description": "The server software (Paper, Fabric, or NeoForge), and the WorldAPI version, platform, and side in the tooltip's labels.",
+          "description": "The server software (Paper, Fabric, or NeoForge) and its version.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -8084,7 +8072,9 @@
                       },
                       "spec": {
                         "expr": "minecraft_player_health{instance=\"$instance\", player=~\"$player\"}",
-                        "legendFormat": "Health · {{player}}"
+                        "legendFormat": "Health · {{player}}",
+                        "instant": false,
+                        "range": true
                       }
                     },
                     "refId": "A",
@@ -8103,7 +8093,9 @@
                       },
                       "spec": {
                         "expr": "minecraft_player_food{instance=\"$instance\", player=~\"$player\"}",
-                        "legendFormat": "Food · {{player}}"
+                        "legendFormat": "Food · {{player}}",
+                        "instant": false,
+                        "range": true
                       }
                     },
                     "refId": "B",
@@ -8144,7 +8136,7 @@
                     "axisSoftMin": 0,
                     "drawStyle": "line",
                     "fillOpacity": 0,
-                    "lineWidth": 1,
+                    "lineWidth": 2,
                     "showPoints": "never",
                     "spanNulls": false
                   }
