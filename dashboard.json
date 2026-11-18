@@ -45,7 +45,7 @@
           "iconColor": "orange",
           "name": "Restarts",
           "legacyOptions": {
-            "expr": "changes(minecraft_start_time_seconds{instance=\"$instance\"}[2m]) > 0",
+            "expr": "(minecraft_start_time_seconds{instance=\"$instance\"} - minecraft_start_time_seconds{instance=\"$instance\"} offset 1m) > 0",
             "step": "60s",
             "textFormat": "",
             "titleFormat": "Server restarted"
