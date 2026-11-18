@@ -3876,7 +3876,7 @@
         "spec": {
           "id": 39,
           "title": "Every player",
-          "description": "Lifetime statistics from the game's own counters. Mined counts every block, Hearts lost the damage taken. Click a header to sort.",
+          "description": "Lifetime statistics from the game's own counters. Mined counts every block, PvP kills the players killed, Hearts dealt and Hearts lost the damage. Click a header to sort.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -4167,6 +4167,50 @@
                     "refId": "J",
                     "hidden": false
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "max by (player) (minecraft_player_player_kills_total{instance=\"$instance\", player=~\"$player\"})",
+                        "instant": true,
+                        "legendFormat": "__auto",
+                        "range": false,
+                        "format": "table"
+                      }
+                    },
+                    "refId": "K",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "max by (player) (minecraft_player_damage_dealt_total{instance=\"$instance\", player=~\"$player\"}) * 0.5",
+                        "instant": true,
+                        "legendFormat": "__auto",
+                        "range": false,
+                        "format": "table"
+                      }
+                    },
+                    "refId": "L",
+                    "hidden": false
+                  }
                 }
               ],
               "transformations": [
@@ -4186,20 +4230,22 @@
                         "Time": true
                       },
                       "indexByName": {
+                        "player": 0,
                         "Value #A": 1,
                         "Value #B": 2,
                         "Value #C": 3,
                         "Value #D": 4,
                         "Value #E": 5,
                         "Value #F": 6,
-                        "Value #G": 8,
-                        "Value #H": 9,
-                        "Value #I": 11,
-                        "Value #J": 13,
-                        "Value #P": 7,
-                        "Value #R": 10,
-                        "Value #T": 12,
-                        "player": 0
+                        "Value #K": 7,
+                        "Value #L": 8,
+                        "Value #P": 9,
+                        "Value #G": 10,
+                        "Value #H": 11,
+                        "Value #R": 12,
+                        "Value #I": 13,
+                        "Value #T": 14,
+                        "Value #J": 15
                       },
                       "renameByName": {
                         "Value #A": "Played",
@@ -4215,7 +4261,9 @@
                         "Value #P": "Hearts lost",
                         "Value #R": "Crafted",
                         "Value #T": "Trades",
-                        "player": "Player"
+                        "player": "Player",
+                        "Value #K": "PvP kills",
+                        "Value #L": "Hearts dealt"
                       }
                     }
                   }
@@ -4247,7 +4295,7 @@
                     "cellOptions": {
                       "type": "auto"
                     },
-                    "width": 98
+                    "width": 85
                   }
                 },
                 "overrides": [
@@ -4259,7 +4307,7 @@
                     "properties": [
                       {
                         "id": "custom.width",
-                        "value": 140
+                        "value": 130
                       }
                     ]
                   },
@@ -4271,7 +4319,7 @@
                     "properties": [
                       {
                         "id": "custom.width",
-                        "value": 135
+                        "value": 120
                       }
                     ]
                   },
@@ -4283,7 +4331,7 @@
                     "properties": [
                       {
                         "id": "custom.width",
-                        "value": 120
+                        "value": 115
                       }
                     ]
                   },
@@ -4447,6 +4495,30 @@
                     "matcher": {
                       "id": "byName",
                       "options": "XP gained"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "PvP kills"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "none"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Hearts dealt"
                     },
                     "properties": [
                       {
