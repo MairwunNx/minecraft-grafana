@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0
+
+- ⏱️ **TPS and tick time follow `/tick rate`.** The graphs draw the target rate and the tick budget as dashed lines instead of a fixed 20 TPS and 50 ms, and the TPS and “Tick time p95” tiles color by their share of the target.
+- 🧊 **Status knows “Frozen”** while `/tick freeze` stops the ticks, and reads “Down” when Prometheus has nothing fresh from the exporter, instead of “No data”.
+- 🐳 **Container limits.** In a container, “Load average” and “Host memory” draw its CPU and memory limits too.
+- 🌍 **Online over time** stacks the players by the world they're in.
+- ⚔️ **Every player** counts players killed and hearts dealt.
+- 👥 “Chat by player” and “New players” moved from Activity to Players, which a singleplayer world hides.
+- 🐛 “Plugins and mods” and “Mods” sort by name again, “Chat” and “Console warnings and errors” put the time first, “Failed requests” fills its bars and sums them in the legend, and the restart mark shows once per restart.
+
 ## 1.5.1
 
 Needs Grafana 13: the dashboard is now a v2 dashboard, the only kind whose rows can hide by a condition.

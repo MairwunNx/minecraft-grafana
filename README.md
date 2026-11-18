@@ -16,11 +16,11 @@
 
 ## What you get
 
-- 🟢 **Server at a glance:** up, down, or paused, version, uptime, TPS, tick time, heap.
-- ⏱️ **Performance:** TPS, tick times by percentile against the 50 ms line where the server starts to lag, heap, CPU, garbage collection.
+- 🟢 **Server at a glance:** up, down, paused, or frozen, version, uptime, TPS, tick time, heap.
+- ⏱️ **Performance:** TPS, tick times by percentile against the tick budget, past which the server starts to lag, heap, CPU, garbage collection.
 - 🌍 **Worlds:** loaded chunks, entities, block entities, the most common entities, a weather timeline, the day and the time of day.
-- 👥 **Players:** who’s online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player’s lifetime statistics, from deaths to diamonds.
-- 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, chat by player, new players, and other plugins’ events.
+- 👥 **Players:** who’s online, where they stand, their health, food, level, ping, and time played; who played most in the time range; every player’s lifetime statistics, from deaths to diamonds; chat by player and new players.
+- 💀 **Activity:** joins, deaths, and advancements over time, deaths by cause and killer, and other plugins’ events.
 - 💬 **Chat, events, and console warnings** as tables, read straight from WorldAPI.
 - 🔐 **More with a WorldAPI token:** the host’s load and disk, what lags in each world down to the busiest chunks, plugins with their versions, and the console.
 - 🎮 **Your world, alone:** for a singleplayer world it hides the server’s players, console, and chat, and shows your play time, level, deaths, diamonds, health and food, and mods.
