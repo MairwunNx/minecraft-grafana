@@ -1098,7 +1098,7 @@
         "spec": {
           "id": 2,
           "title": "Status",
-          "description": "Whether the exporter reached WorldAPI on its last scrape, and whether a singleplayer game is paused.",
+          "description": "Up when the exporter reached WorldAPI on its last scrape, Down when it didn't or Prometheus has nothing fresh from it. Paused: a singleplayer game sits in its menu. Frozen: /tick freeze stopped the ticks.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -1115,7 +1115,7 @@
                         "name": "${datasource}"
                       },
                       "spec": {
-                        "expr": "max(minecraft_up{instance=\"$instance\"}) + max(minecraft_paused{instance=\"$instance\"} or vector(0))",
+                        "expr": "max(minecraft_up{instance=\"$instance\"} or on () vector(0)) * (1 + max(minecraft_paused{instance=\"$instance\"} or on () vector(0)) + 2 * max(minecraft_tick_frozen{instance=\"$instance\"} or on () vector(0)))",
                         "instant": true,
                         "legendFormat": "__auto",
                         "range": false
@@ -1168,6 +1168,14 @@
                         "2": {
                           "text": "Paused",
                           "index": 2
+                        },
+                        "3": {
+                          "text": "Frozen",
+                          "index": 3
+                        },
+                        "4": {
+                          "text": "Paused",
+                          "index": 4
                         }
                       }
                     }
