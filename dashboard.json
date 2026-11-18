@@ -9321,7 +9321,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 0,
-                        "y": -13,
+                        "y": 0,
                         "width": 12,
                         "height": 8,
                         "element": {
@@ -9334,7 +9334,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 12,
-                        "y": -13,
+                        "y": 0,
                         "width": 12,
                         "height": 8,
                         "element": {
@@ -9347,7 +9347,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 0,
-                        "y": -5,
+                        "y": 8,
                         "width": 8,
                         "height": 8,
                         "element": {
@@ -9360,7 +9360,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 8,
-                        "y": -5,
+                        "y": 8,
                         "width": 8,
                         "height": 8,
                         "element": {
@@ -9373,7 +9373,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 16,
-                        "y": -5,
+                        "y": 8,
                         "width": 8,
                         "height": 8,
                         "element": {
@@ -9400,7 +9400,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 0,
-                        "y": -13,
+                        "y": 0,
                         "width": 12,
                         "height": 8,
                         "element": {
@@ -9413,7 +9413,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 12,
-                        "y": -13,
+                        "y": 0,
                         "width": 12,
                         "height": 8,
                         "element": {
@@ -9426,7 +9426,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 0,
-                        "y": -5,
+                        "y": 8,
                         "width": 24,
                         "height": 9,
                         "element": {
