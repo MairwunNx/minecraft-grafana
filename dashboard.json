@@ -7060,8 +7060,7 @@
               "options": {
                 "legend": {
                   "calcs": [
-                    "lastNotNull",
-                    "max"
+                    "sum"
                   ],
                   "displayMode": "table",
                   "placement": "bottom",
@@ -7086,7 +7085,7 @@
                     "axisSoftMin": 0,
                     "barAlignment": 0,
                     "drawStyle": "bars",
-                    "fillOpacity": 0,
+                    "fillOpacity": 80,
                     "gradientMode": "opacity",
                     "lineInterpolation": "linear",
                     "lineWidth": 2,
