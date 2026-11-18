@@ -62,7 +62,7 @@
         "spec": {
           "id": 11,
           "title": "TPS",
-          "description": "Ticks per second over one, five, and fifteen minutes; 20 is full speed.",
+          "description": "Ticks per second over one, five, and fifteen minutes, against the rate the server aims for (dashed): 20, unless /tick rate changed it.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -86,6 +86,27 @@
                       }
                     },
                     "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "minecraft_tick_rate{instance=\"$instance\"}",
+                        "instant": false,
+                        "legendFormat": "target",
+                        "range": true
+                      }
+                    },
+                    "refId": "B",
                     "hidden": false
                   }
                 }
@@ -119,7 +140,6 @@
                   "unit": "short",
                   "decimals": 1,
                   "min": 0,
-                  "max": 20,
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -165,6 +185,35 @@
                         "value": 0
                       }
                     ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "target"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      },
+                      {
+                        "id": "custom.fillOpacity",
+                        "value": 0
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "text",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
                   }
                 ]
               }
@@ -177,7 +226,7 @@
         "spec": {
           "id": 12,
           "title": "Tick time",
-          "description": "How long ticks take: the median, the slow ones, and the slowest. Past 50 ms (the red line) the server can't keep 20 TPS.",
+          "description": "How long ticks take: the median, the slow ones, and the slowest. Past the budget (dashed), 50 ms at 20 TPS, the server falls behind.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -224,6 +273,27 @@
                     "refId": "B",
                     "hidden": false
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "1 / minecraft_tick_rate{instance=\"$instance\"}",
+                        "instant": false,
+                        "legendFormat": "budget",
+                        "range": true
+                      }
+                    },
+                    "refId": "C",
+                    "hidden": false
+                  }
                 }
               ],
               "transformations": [],
@@ -259,11 +329,7 @@
                     "steps": [
                       {
                         "value": null,
-                        "color": "transparent"
-                      },
-                      {
-                        "value": 0.05,
-                        "color": "red"
+                        "color": "green"
                       }
                     ]
                   },
@@ -287,7 +353,7 @@
                       "mode": "none"
                     },
                     "thresholdsStyle": {
-                      "mode": "line"
+                      "mode": "off"
                     }
                   }
                 },
@@ -337,6 +403,35 @@
                       {
                         "id": "displayName",
                         "value": "max"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "budget"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      },
+                      {
+                        "id": "custom.fillOpacity",
+                        "value": 0
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "text",
+                          "mode": "fixed"
+                        }
                       }
                     ]
                   }
@@ -4275,7 +4370,7 @@
         "spec": {
           "id": 4,
           "title": "TPS",
-          "description": "Ticks per second over the last minute; 20 is full speed. A paused singleplayer game doesn't tick, and Status says so.",
+          "description": "Ticks per second over the last minute. Full speed is 20, unless /tick rate changed it: below 90% of it the tile turns orange, below 75% red. A paused singleplayer game doesn't tick, and Status says so.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -4301,9 +4396,47 @@
                     "refId": "A",
                     "hidden": false
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "(minecraft_tick_rate{instance=\"$instance\"} or on () vector(20))",
+                        "instant": false,
+                        "legendFormat": "target",
+                        "range": true
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
                 }
               ],
-              "transformations": [],
+              "transformations": [
+                {
+                  "kind": "configFromData",
+                  "spec": {
+                    "id": "configFromData",
+                    "options": {
+                      "configRefId": "B",
+                      "mappings": [
+                        {
+                          "fieldName": "target",
+                          "handlerKey": "max",
+                          "reducerId": "lastNotNull"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
               "queryOptions": {}
             }
           },
@@ -4332,25 +4465,26 @@
                   "unit": "short",
                   "decimals": 1,
                   "thresholds": {
-                    "mode": "absolute",
+                    "mode": "percentage",
                     "steps": [
                       {
                         "value": null,
                         "color": "red"
                       },
                       {
-                        "value": 15,
+                        "value": 75,
                         "color": "orange"
                       },
                       {
-                        "value": 18,
+                        "value": 90,
                         "color": "green"
                       }
                     ]
                   },
                   "color": {
                     "mode": "thresholds"
-                  }
+                  },
+                  "min": 0
                 },
                 "overrides": []
               }
@@ -5240,7 +5374,7 @@
         "spec": {
           "id": 5,
           "title": "Tick time p95",
-          "description": "95% of recent ticks took less. Past 50 ms the server falls behind.",
+          "description": "95% of recent ticks took less. Past the tick budget, 50 ms at 20 TPS, the server falls behind.",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -5266,9 +5400,47 @@
                     "refId": "A",
                     "hidden": false
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "expr": "1 / (minecraft_tick_rate{instance=\"$instance\"} or on () vector(20))",
+                        "instant": false,
+                        "legendFormat": "budget",
+                        "range": true
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
                 }
               ],
-              "transformations": [],
+              "transformations": [
+                {
+                  "kind": "configFromData",
+                  "spec": {
+                    "id": "configFromData",
+                    "options": {
+                      "configRefId": "B",
+                      "mappings": [
+                        {
+                          "fieldName": "budget",
+                          "handlerKey": "max",
+                          "reducerId": "lastNotNull"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
               "queryOptions": {}
             }
           },
@@ -5297,25 +5469,26 @@
                   "unit": "s",
                   "decimals": 1,
                   "thresholds": {
-                    "mode": "absolute",
+                    "mode": "percentage",
                     "steps": [
                       {
                         "value": null,
                         "color": "green"
                       },
                       {
-                        "value": 0.04,
+                        "value": 80,
                         "color": "orange"
                       },
                       {
-                        "value": 0.05,
+                        "value": 100,
                         "color": "red"
                       }
                     ]
                   },
                   "color": {
                     "mode": "thresholds"
-                  }
+                  },
+                  "min": 0
                 },
                 "overrides": []
               }
