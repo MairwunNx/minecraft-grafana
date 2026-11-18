@@ -5391,7 +5391,7 @@
                 "sortBy": [
                   {
                     "desc": false,
-                    "displayName": "Plugin"
+                    "displayName": "Name"
                   }
                 ]
               },
@@ -8223,7 +8223,7 @@
                 "sortBy": [
                   {
                     "desc": false,
-                    "displayName": "Plugin"
+                    "displayName": "Mod"
                   }
                 ]
               },
