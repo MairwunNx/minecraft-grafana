@@ -1,5 +1,7 @@
 # Дашборд Minecraft для Grafana
 
+![Minecraft Grafana: ваш сервер Minecraft в Grafana](media/hero.webp)
+
 <p align="center">
   <a href="https://grafana.com/grafana/dashboards/25941"><img alt="grafana.com" src="https://img.shields.io/badge/grafana.com-25941-F46800?logo=grafana&logoColor=white"></a>
   <a href="https://github.com/MairwunNx/minecraft-grafana/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MairwunNx/minecraft-grafana?label=release"></a>
